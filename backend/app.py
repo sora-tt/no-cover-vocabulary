@@ -31,7 +31,6 @@ def main() -> None:
         print(f"Error: '{large_file}.csv' or '{small_file}.csv' not found in data directory.")
         return
     no_cover_vocab = compare_vocabularies(large_df, small_df)
-    print("No Cover Vocabulary:")
     for vocab in sorted(no_cover_vocab):
         print(vocab)
     return
