@@ -1,5 +1,5 @@
 import streamlit as st
-import subprocess
+from backend.modules.app import get_data, compare_vocabularies
 
 def main():
     st.title("No Cover Vocabulary")
@@ -13,17 +13,19 @@ def main():
 
     if st.button("Compare Vocabularies"):
         if large_file and small_file:
-            try:
-                result = subprocess.run(
-                    ["python3", "backend/app.py", large_file, small_file],
-                    capture_output=True,
-                    text=True,
-                    check=True
-                )
+            dfs = get_data([large_file, small_file])
+            large_df = dfs.get(large_file)
+            small_df = dfs.get(small_file)
+            if large_df is None or small_df is None:
+                st.error(f"Error: '{large_file}.csv' or '{small_file}.csv' not found in data directory.")
+            else:
+                result = compare_vocabularies(large_df, small_df)
                 st.subheader("No Cover Vocabulary:")
-                st.text(result.stdout)
-            except subprocess.CalledProcessError as e:
-                st.error(f"An error occurred: {e.stderr}")
+                if result:
+                    for vocab in sorted(result):
+                        st.write(vocab)
+                else:
+                    st.write("All vocabularies in the larger file are covered by the smaller file.")
         else:
             st.error("Please enter both file names.")
 
