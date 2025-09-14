@@ -1,5 +1,9 @@
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '../backend'))
+
 import streamlit as st
-from backend.modules.app import get_data, compare_vocabularies
+from modules.app import get_data, compare_vocabularies
 
 def main():
     st.title("No Cover Vocabulary")
