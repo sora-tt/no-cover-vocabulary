@@ -11,6 +11,7 @@ def main():
     st.write("""
     This application compares vocabularies between two CSV files and identifies words present in the larger file but absent in the smaller one.
     """)
+    st.write("If you find any issues, please report them on [Issues Page](https://github.com/sora-tt/no-cover-vocabulary/issues).")
     
     data_dir = os.path.join(os.path.dirname(__file__), '../backend/data')
     csv_files = [f[:-4] for f in os.listdir(data_dir) if f.endswith('.csv')]
