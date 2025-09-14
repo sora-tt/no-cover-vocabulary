@@ -1,35 +1,36 @@
 import os
+import sys
 import pandas as pd
+from typing import List
 
-def get_data():
-    # TODO: We should refactor here because this function reads all CSV files in the data directory.
-    # For now, we assume there are only two files: system.csv and target.csv.
-    # We should ensure that only needed files are read.
+def get_data(references: List[str]) -> dict:
+    '''Load CSV files into DataFrames.'''
     data_dir = os.path.join(os.path.dirname(__file__), 'data')
     dfs = {}
-    for filename in os.listdir(data_dir):
-        if filename.endswith('.csv'):
-            filepath = os.path.join(data_dir, filename)
-            df_name = os.path.splitext(filename)[0]
-            dfs[df_name] = pd.read_csv(filepath, usecols=['Vocabulary'], index_col=None)
+    for filename in references:
+        filepath = os.path.join(data_dir, f'{filename}.csv')
+        df_name = os.path.splitext(filename)[0]
+        dfs[df_name] = pd.read_csv(filepath, usecols=['Vocabulary'], index_col=None)
     return dfs
 
-def compare_vocabularies(large_df, small_df):
+def compare_vocabularies(large_df: pd.DataFrame, small_df: pd.DataFrame) -> set:
+    '''Compare vocabularies between two DataFrames and return the difference.'''
     large_vocab = set(large_df['Vocabulary'])
     small_vocab = set(small_df['Vocabulary'])
     no_cover_vocab = large_vocab - small_vocab
     return no_cover_vocab
 
-def main():
-    dfs = get_data()
-    # TODO: Let's eliminate these kinds of hard-coded names.
-    # We should make the function more flexible to handle different filenames.
-    system_df = dfs.get('system')
-    target_df = dfs.get('target')
-    if system_df is None or target_df is None:
-        print("Error: 'system.csv' or 'target.csv' not found in data directory.")
+def main() -> None:
+    large_file: str = sys.argv[1]
+    small_file: str = sys.argv[2]
+    references: List[str] = [large_file, small_file]
+    dfs: dict = get_data(references)
+    large_df = dfs.get(large_file)
+    small_df = dfs.get(small_file)
+    if large_df is None or small_df is None:
+        print(f"Error: '{large_file}.csv' or '{small_file}.csv' not found in data directory.")
         return
-    no_cover_vocab = compare_vocabularies(system_df, target_df)
+    no_cover_vocab = compare_vocabularies(large_df, small_df)
     print("No Cover Vocabulary:")
     for vocab in sorted(no_cover_vocab):
         print(vocab)
