@@ -11,9 +11,13 @@ def main():
     st.write("""
     This application compares vocabularies between two CSV files and identifies words present in the larger file but absent in the smaller one.
     """)
+    
+    data_dir = os.path.join(os.path.dirname(__file__), '../backend/data')
+    csv_files = [f[:-4] for f in os.listdir(data_dir) if f.endswith('.csv')]
+    options = ["---"] + csv_files
 
-    large_file = st.text_input("Enter the name of the larger CSV file (without .csv):", placeholder="e.g., system")
-    small_file = st.text_input("Enter the name of the smaller CSV file (without .csv):", placeholder="e.g., target")
+    large_file = st.selectbox("Select the larger CSV file (without .csv):", options, index=0, placeholder="e.g., system")
+    small_file = st.selectbox("Select the smaller CSV file (without .csv):", options, index=0, placeholder="e.g., target")
 
     if st.button("Compare Vocabularies"):
         if large_file and small_file:
