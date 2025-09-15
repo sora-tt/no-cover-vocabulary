@@ -20,17 +20,19 @@ def main():
     large_file = st.selectbox("Select the larger vocabulary notebook:", options, index=0, placeholder="e.g., system")
     small_file = st.selectbox("Select the smaller vocabulary notebook:", options, index=0, placeholder="e.g., target")
 
+    has_result_in_session = 'result' in st.session_state and st.session_state['result'] is not None
+
     japanese_translation_option = st.checkbox(
         "Get Japanese Translations", 
         value=False,
-        disabled=('result' in st.session_state and st.session_state['result'] is not None)
+        disabled=has_result_in_session
     )
 
     col1, col2 = st.columns([3, 8])
     compare_vocabularies_button = col1.button("Compare Vocabularies", key="compare_btn")
     clear_button = col2.button(
         "Clear", 
-        disabled=not ('result' in st.session_state and st.session_state['result'] is not None),
+        disabled=not has_result_in_session,
         key="clear_btn"
     )
     
@@ -54,7 +56,7 @@ def main():
         st.session_state['result'] = None
         st.rerun()
         
-    if 'result' in st.session_state and st.session_state['result'] is not None:
+    if has_result_in_session:
         st.subheader('No Cover Vocabulary Results')
         st.write(f'The number of vocabularies not covered: {len(st.session_state["result"])}')
         if st.session_state['result']:
