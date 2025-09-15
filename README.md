@@ -30,6 +30,7 @@ Please access [here](https://no-cover-vocabulary.streamlit.app/).
 ### Select vocabulary notebooks
 
 Choose 2 notebooks you want to investigate.
+e.g. If you set ターゲット1900 (referred T from below) as the larger vocabulary notebook, and パス単準1_5訂版 (referred P from below) as the smaller one, this app extracts words from T, which is not described in P.
 ![select box](./static/images/select-box.png)
 
 ### Check Japanese translation
@@ -73,6 +74,32 @@ Revised,Number,Vocabulary,Meaning
 ...
 ```
 
+## How to execute this app from your local environment
+
+### Requirements
+
+Please make sure that your system has them.
+```
+brew (only for Mac)
+git
+```
+(For windows users) I recommend to use WSL as a distribution.
+
+Execute these commands in order on your terminal.
+```sh
+$ cd ~
+$ mkdir dev
+$ cd dev
+$ git clone https://github.com/sora-tt/no-cover-vocabulary.git
+$ cd no-cover-vocabulary
+$ python3 -m venv env
+$ source ./env/bin/activate
+$ pip install --upgrade pip
+$ pip install -r requirements.txt
+$ streamlit run frontend/app.py
+```
+Then, browser will be opened automatically.
+
 ## Inquiries & Reports
 
 If you would like to propose new features, or find some bugs, please let me know.
@@ -82,3 +109,38 @@ You can report anything by using [this issue page](https://github.com/sora-tt/no
 - python.analysis.typeCheckingMode
 - general rule
     - Please make sure to create **an issue and a pull request** even though your change is small enough.
+
+## Version update
+
+### [v1.6.2] - 2025-09-15
+- Update the browser title.
+
+### [v1.6.1] - 2025-09-15
+- Refactor condition flag used repeatedly.
+
+### [v1.6.0] - 2025-09-15
+- Add LEAP and パス単準1級 data.
+
+### [v1.5.0] - 2025-09-15
+- Add checkbox to see Japanese translation.
+
+### [v1.4.0] - 2025-09-15
+- Create the clear button.
+- Add session management feature.
+
+### [v1.3.0] - 2025-09-15
+- Create select box for more simple UI.
+- Add note for users to report issues.
+
+### [v1.2.1] - 2025-09-15
+- Fix import error of backend modules.
+
+### [v1.2.0] - 2025-09-15
+- Modulize backend to enable deployment.
+
+### [v1.1.0] - 2025-09-15
+- Implement frontend basic feature.
+
+### [v1.0.0] - 2025-09-14
+- Initial Release.
+- Basic feature comparing 2 data.
