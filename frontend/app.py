@@ -6,6 +6,7 @@ import streamlit as st
 from modules.app import get_data, compare_vocabularies
 
 def main():
+    st.set_page_config(page_title="No Cover Vocabulary", page_icon="📝")
     st.title("No Cover Vocabulary")
 
     st.write("""
