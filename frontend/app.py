@@ -20,6 +20,12 @@ def main():
     large_file = st.selectbox("Select the larger vocabulary notebook:", options, index=0, placeholder="e.g., system")
     small_file = st.selectbox("Select the smaller vocabulary notebook:", options, index=0, placeholder="e.g., target")
 
+    japanese_translation_option = st.checkbox(
+        "Get Japanese Translations", 
+        value=False,
+        disabled=('result' in st.session_state and st.session_state['result'] is not None)
+    )
+
     col1, col2 = st.columns([3, 8])
     compare_vocabularies_button = col1.button("Compare Vocabularies", key="compare_btn")
     clear_button = col2.button(
@@ -30,14 +36,14 @@ def main():
     
     if compare_vocabularies_button:
         if large_file not in ('', "---") and small_file not in ('', "---"):
-            dfs = get_data([large_file, small_file])
+            dfs = get_data([large_file, small_file], japanese_translation_option)
             large_df = dfs.get(large_file)
             small_df = dfs.get(small_file)
             if large_df is None or small_df is None:
                 st.session_state['result'] = None
                 st.error(f"Error: '{large_file}.csv' or '{small_file}.csv' not found in data directory.")
             else:
-                result = compare_vocabularies(large_df, small_df)
+                result = compare_vocabularies(large_df, small_df, japanese_translation_option)
                 st.session_state['result'] = result
                 st.rerun()
         else:
@@ -52,8 +58,12 @@ def main():
         st.subheader('No Cover Vocabulary Results')
         st.write(f'The number of vocabularies not covered: {len(st.session_state["result"])}')
         if st.session_state['result']:
-            for vocab in sorted(st.session_state['result']):
-                st.write(vocab)
+            if japanese_translation_option:
+                for vocab, meaning in sorted(st.session_state['result']):
+                    st.write(f'{vocab}: {meaning}')
+            else:
+                for vocab in sorted(st.session_state['result']):
+                    st.write(f'{vocab}')
         else:
             st.write("All vocabularies in the larger file are covered by the smaller file.")
 
