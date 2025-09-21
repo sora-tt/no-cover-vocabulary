@@ -1,0 +1,26 @@
+# Django 本体
+Django>=5.2,<6.0
+
+# Django REST Framework
+djangorestframework>=3.15,<4.0
+
+# PostgreSQL 用ドライバ
+psycopg2-binary>=2.9
+
+# 環境変数管理
+python-decouple>=3.8
+
+# CORS 対応（フロントと接続する場合）
+django-cors-headers>=4.0
+
+# gunicorn (本番用 WSGI サーバー)
+gunicorn>=22.0
+
+# 開発時に便利なパッケージ
+ipython>=8.0
+
+# .env ファイルの読み込み
+python-dotenv>=1.0
+
+# データベース URL のパース
+dj-database-url>=1.0

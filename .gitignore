@@ -11,3 +11,5 @@ __pycache__/
 devcontainer.json
 
 backend/.test_data/
+
+frontend/node_modules/

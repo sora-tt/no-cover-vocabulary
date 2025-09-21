@@ -31,24 +31,29 @@ Please access [here](https://no-cover-vocabulary.streamlit.app/).
 
 Choose 2 notebooks you want to investigate.
 e.g. If you set ターゲット1900 (referred T from below) as the larger vocabulary notebook, and パス単準1_5訂版 (referred P from below) as the smaller one, this app extracts words from T, which is not described in P.
-![select box](./static/images/select-box.png)
+![select box](./docs/images/select-box.png)
 
 ### Check Japanese translation
 
 If you want to confirm Japanese translation for each word as well, please check the following checkbox.
-![check box](./static/images/check-box.png)
+
+![check box](./docs/images/check-box.png)
 
 ### Click the "Compare Vocabularies" button to confirm the results
 
 You can run app by clicking the following button.
-![compare vocabularies](./static/images/compare-vocabularies.png)
+
+![compare vocabularies](./docs/images/compare-vocabularies.png)
+
 And you can see the results for execution.
 The following is one of the examples.
-![result without ja](./static/images/result-without-ja.png)
+
+![result without ja](./docs/images/result-without-ja.png)
 
 ---
 If you have checked Japanese translation checkbox, you can see the Japanese translations like below;
-![result with ja](./static/images/result-with-ja.png)
+
+![result with ja](./docs/images/result-with-ja.png)
 
 ### Click the "Clear" button if needed
 
@@ -87,16 +92,16 @@ git
 
 Execute these commands in order on your terminal.
 ```sh
-$ cd ~
-$ mkdir dev
-$ cd dev
-$ git clone https://github.com/sora-tt/no-cover-vocabulary.git
-$ cd no-cover-vocabulary
-$ python3 -m venv env
-$ source ./env/bin/activate
-$ pip install --upgrade pip
-$ pip install -r requirements.txt
-$ streamlit run frontend/app.py
+cd ~
+mkdir dev
+cd dev
+git clone https://github.com/sora-tt/no-cover-vocabulary.git
+cd no-cover-vocabulary
+python3 -m venv env
+source ./env/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+streamlit run frontend/app.py
 ```
 Then, browser will be opened automatically.
 
@@ -144,3 +149,22 @@ You can report anything by using [this issue page](https://github.com/sora-tt/no
 ### [v1.0.0] - 2025-09-14
 - Initial Release.
 - Basic feature comparing 2 data.
+
+---
+
+# No Cover Vocabulary (Revamp version)
+
+## How to use
+
+TBU
+
+## How to execute
+
+Execute this command
+```sh
+git clone https://github.com/sora-tt/no-cover-vocabulary.git
+cd no-cover-vocabulary
+git checkout release/revamp-using-react-and-django
+docker compose up --build
+```
+Then access to [http://localhost:3000/](http://localhost:3000/)
