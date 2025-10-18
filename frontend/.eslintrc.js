@@ -28,8 +28,30 @@ module.exports = {
   ],
   plugins: ["react", "react-hooks", "@typescript-eslint"],
   rules: {
+    "import/order": [
+      "error",
+      {
+        groups: [
+          ["builtin", "external"],
+          ["internal"],
+          ["parent", "sibling", "index"],
+        ],
+        "newlines-between": "always",
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
+        },
+      },
+    ],
     "react/react-in-jsx-scope": "off", // It's not necessary on React 17+
     "react/prop-types": "off", // It's not necessary with TypeScript
+    "react/function-component-definition": [
+      "error",
+      {
+        namedComponents: "arrow-function",
+        unnamedComponents: "arrow-function",
+      },
+    ], // Enforce arrow functions for components
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     "@typescript-eslint/no-explicit-any": "off", // If you want to warn, change "off" to "warn"
   },
